@@ -13,5 +13,9 @@ function test(row) {
         let column = document.createElement('div');
         column.setAttribute('class', 'column');
         row.appendChild(column);
+        column.addEventListener('mouseover', function() {
+            column.style.background = 'red';
+        });
     }
 }
+
