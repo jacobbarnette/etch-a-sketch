@@ -3,31 +3,43 @@ let resetBtn = document.getElementById('resetBtn');
 let columnCount = 0;
 let gridSizeInput = document.getElementById('gridSizeInput');
 
-let gridSize = 16;
+let gridSize = 200;
 
-function createGrid(gridSize) {
-    console.log('1' + gridSize);
-    for(let i =0; i < gridSize; i++) {
-        let row = document.createElement('div');
-            row.setAttribute('class', 'row');
-        container.appendChild(row);    
-        test(row);
-    }  
+function createGrid() {
+    for(let i = 0; i < 64; i++) {
+        let newDiv = document.createElement('div');
+            newDiv.classList  = 'cards';
+            newDiv.addEventListener('mouseover', function() {
+                if(newDiv.style.background == false) {
+                    newDiv.style.background = randomColor();
+                }
+            })
+        container.appendChild(newDiv);
+    }
 }
 
-function test(row) {
-    for(let i =0; i < gridSize; i++) {
-        let column = document.createElement('div');
-            column.setAttribute('class', 'column');
-        row.appendChild(column);
-        column.addEventListener('mouseover', function() {
-            if(column.style.background == false) {
-                columnCount++
-                column.style.background = randomColor();
-            }       
-        });
-    }  
-}
+// function test(row) {
+//     for(let i =0; i < gridSize; i++) {
+//         let column = document.createElement('div');
+//             column.setAttribute('class', 'column');
+//         row.appendChild(column);
+//         column.addEventListener('mouseover', function() {
+//             if(column.style.background == false) {
+//                 columnCount++
+//                 column.style.background = randomColor();
+//             }       
+//         });
+//     }  
+// }
+resetBtn.addEventListener('click', function() {
+    let answer = prompt('Are you sure you want to continue?');
+    if(answer.toLowerCase() === 'yes') {
+        while(container.firstChild){
+            container.removeChild(container.lastChild);
+            }
+        createGrid(gridSize);
+    }
+});
 
 function randomColor () {
     let random = (min, max) => min + Math.floor(Math.random() * (max-min + 1));
@@ -46,4 +58,4 @@ gridSizeInput.addEventListener('click', function() {
 })
 
 console.log(gridSize);
-createGrid(gridSize);
+createGrid();
