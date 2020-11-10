@@ -1,12 +1,12 @@
 let container = document.getElementById('container');
 let resetBtn = document.getElementById('resetBtn');
-let columnCount = 0;
 let gridSizeInput = document.getElementById('gridSizeInput');
+let root = document.documentElement;
 
 
 
-function createGrid() {
-    for(let i = 0; i < 64; i++) {
+function createGrid(x) {
+    for(let i = 0; i < x; i++) {
         let newDiv = document.createElement('div');
             newDiv.classList  = 'cards';
             newDiv.addEventListener('mouseover', function() {
@@ -23,8 +23,8 @@ resetBtn.addEventListener('click', function() {
     if(answer.toLowerCase() === 'yes') {
         while(container.firstChild){
             container.removeChild(container.lastChild);
-            }
-        createGrid(gridSize);
+        }
+        createGrid(64);
     }
 });
 
@@ -39,8 +39,16 @@ function randomColor () {
 
 
 gridSizeInput.addEventListener('click', function() {
-   
+    let answer = prompt('How big would you like the grid? (2-100)');
+    if(Number(answer) >= 2) {
+        while(container.firstChild){
+            container.removeChild(container.lastChild);
+        }
+        root.style.setProperty('--column-count', answer);
+        answer = answer * answer;
+        createGrid(answer);
+    }
 });
 
 
-createGrid();
+createGrid(64);
